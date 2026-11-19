@@ -1,0 +1,147 @@
+{
+  "provider": "elevenlabs",
+  "tracks": {
+    "01": {
+      "file": "audio/01-bhishmacharya-palm-tree.mp3",
+      "bytes": 773267,
+      "durationSec": 48.25,
+      "hash": "6c585459682a3730"
+    },
+    "prologue": {
+      "file": "audio/00-prologue.mp3",
+      "bytes": 785806,
+      "durationSec": 49.04,
+      "hash": "584374a9f5f10c34"
+    },
+    "02": {
+      "file": "audio/02-dronacharya-golden-altar.mp3",
+      "bytes": 723948,
+      "durationSec": 45.19,
+      "hash": "a8fb7bb3751a7de0"
+    },
+    "03": {
+      "file": "audio/03-kripacharya-cow-and-bull.mp3",
+      "bytes": 640774,
+      "durationSec": 39.98,
+      "hash": "251be3fb131257d2"
+    },
+    "04": {
+      "file": "audio/04-yudhisthira-golden-moon.mp3",
+      "bytes": 647461,
+      "durationSec": 40.4,
+      "hash": "8b0a27ad5c124033"
+    },
+    "05": {
+      "file": "audio/05-bhima-silver-lion.mp3",
+      "bytes": 686332,
+      "durationSec": 42.82,
+      "hash": "5b0ce01d931ccfb1"
+    },
+    "06": {
+      "file": "audio/06-arjuna-hanuman.mp3",
+      "bytes": 664598,
+      "durationSec": 41.47,
+      "hash": "11adaa428bf1d5fd"
+    },
+    "07": {
+      "file": "audio/07-nakula-red-deer.mp3",
+      "bytes": 626563,
+      "durationSec": 39.1,
+      "hash": "e60fb949c8dc0adc"
+    },
+    "08": {
+      "file": "audio/08-sahadeva-silver-swan.mp3",
+      "bytes": 629489,
+      "durationSec": 39.29,
+      "hash": "c16d632f4a2b0d12"
+    },
+    "09": {
+      "file": "audio/09-duryodhana-diamond-hooded-snake.mp3",
+      "bytes": 679644,
+      "durationSec": 42.4,
+      "hash": "3052b3eb95d29221"
+    },
+    "10": {
+      "file": "audio/10-duryodhana-gem-adorned-elephant.mp3",
+      "bytes": 674211,
+      "durationSec": 42.07,
+      "hash": "3747dcf96d27a59c"
+    },
+    "11": {
+      "file": "audio/11-karna-white-conch.mp3",
+      "bytes": 631997,
+      "durationSec": 39.43,
+      "hash": "254ced43758ba32a"
+    },
+    "12": {
+      "file": "audio/12-karna-golden-elephant-rope.mp3",
+      "bytes": 721022,
+      "durationSec": 45.0,
+      "hash": "51c0c3651a52b350"
+    },
+    "13": {
+      "file": "audio/13-abhimanyu-golden-karnikara-tree.mp3",
+      "bytes": 616114,
+      "durationSec": 38.45,
+      "hash": "22f57fdf27c31cdd"
+    },
+    "14": {
+      "file": "audio/14-abhimanyu-golden-peacock.mp3",
+      "bytes": 587275,
+      "durationSec": 36.64,
+      "hash": "ef3f44a788bd131a"
+    },
+    "15": {
+      "file": "audio/15-aswatthama-lions-tail.mp3",
+      "bytes": 554674,
+      "durationSec": 34.6,
+      "hash": "99c192e64e236722"
+    },
+    "16": {
+      "file": "audio/16-ghatotkacha-vulture.mp3",
+      "bytes": 672957,
+      "durationSec": 41.98,
+      "hash": "ffb72b5bef52d80d"
+    },
+    "17": {
+      "file": "audio/17-jayadratha-silver-boar.mp3",
+      "bytes": 614025,
+      "durationSec": 38.31,
+      "hash": "5613a43afc3f9caa"
+    },
+    "18": {
+      "file": "audio/18-shalya-goddess-of-corn.mp3",
+      "bytes": 688421,
+      "durationSec": 42.96,
+      "hash": "0d2f99f239743060"
+    },
+    "19": {
+      "file": "audio/19-vrishasena-peacock-and-plough.mp3",
+      "bytes": 674211,
+      "durationSec": 42.07,
+      "hash": "3ea3522ac856a15a"
+    },
+    "20": {
+      "file": "audio/20-bhurishrava-sacrificial-stake.mp3",
+      "bytes": 694273,
+      "durationSec": 43.33,
+      "hash": "7511ded77f634c53"
+    },
+    "21": {
+      "file": "audio/21-upapandavas-five-divine-banners.mp3",
+      "bytes": 796673,
+      "durationSec": 49.74,
+      "hash": "bfa25021600f51cf"
+    },
+    "epilogue": {
+      "file": "audio/22-epilogue.mp3",
+      "bytes": 516640,
+      "durationSec": 32.23,
+      "hash": "d51d4e2cc714de53"
+    }
+  },
+  "voiceId": "SAxJUlDKRc79XAyeWyMu",
+  "voiceName": "Morgan",
+  "modelId": "eleven_multilingual_v2",
+  "outputFormat": "mp3_44100_128"
+}

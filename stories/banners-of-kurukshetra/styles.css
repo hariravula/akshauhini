@@ -1070,6 +1070,66 @@ a:hover {
   flex-shrink: 0;
 }
 
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.section-header-row .section-kicker {
+  margin: 0;
+}
+
+.scene-audio-bar {
+  height: 3px;
+  width: 100%;
+  background: rgba(244, 200, 121, 0.12);
+  overflow: hidden;
+  display: none;
+}
+
+.scene-audio-bar.is-active {
+  display: block;
+}
+
+.scene-audio-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #b86a2a, var(--gold), var(--gold-bright));
+  transition: width 0.15s linear;
+}
+
+.cinema-scrubber {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cinema-scrubber[hidden] {
+  display: none;
+}
+
+.audio-time {
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+  min-width: 2.3rem;
+  text-align: center;
+}
+
+.audio-seek {
+  width: clamp(88px, 14vw, 180px);
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.cinema-speed {
+  min-width: 3rem;
+  padding: 0.36rem 0.6rem;
+}
+
 .toggle-label {
   display: inline-flex;
   align-items: center;

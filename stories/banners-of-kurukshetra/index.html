@@ -117,7 +117,13 @@
       <section class="prologue-section" id="prologue" aria-labelledby="prologue-heading">
         <div class="container">
           <div class="prologue-card">
-            <p class="section-kicker" id="prologue-heading">Prologue · The Dhvaja</p>
+            <div class="section-header-row">
+              <p class="section-kicker" id="prologue-heading">Prologue · The Dhvaja</p>
+              <button type="button" class="icon-pill js-speak-bookend" data-bookend="prologue" title="Listen to Prologue">
+                <span aria-hidden="true">&#128266;</span>
+                <span>Listen</span>
+              </button>
+            </div>
             <p class="prologue-text" id="prologue-text"></p>
 
             <div class="index-strip-wrap">
@@ -146,6 +152,10 @@
               <button type="button" class="btn btn-primary" id="replay-cinema">
                 <span aria-hidden="true">&#9654;</span>
                 <span>Experience in Cinema Mode</span>
+              </button>
+              <button type="button" class="btn js-speak-bookend" data-bookend="epilogue">
+                <span aria-hidden="true">&#128266;</span>
+                <span>Listen to Epilogue</span>
               </button>
               <a class="btn" href="SCRIPTS.md" target="_blank" rel="noopener">
                 Read Full Narration Script
@@ -245,7 +255,30 @@
         <div class="cinema-playback">
           <button type="button" class="btn btn-primary btn-sm" id="cinema-speak">
             <span aria-hidden="true">&#9654;</span>
-            <span>Read Aloud</span>
+            <span>Narrate</span>
+          </button>
+          <div class="cinema-scrubber" id="cinema-scrubber" hidden>
+            <span class="audio-time" id="cinema-time-current">0:00</span>
+            <input
+              type="range"
+              id="cinema-seek"
+              class="audio-seek"
+              min="0"
+              max="100"
+              step="0.1"
+              value="0"
+              aria-label="Narration playback position"
+            />
+            <span class="audio-time" id="cinema-time-total">0:00</span>
+          </div>
+          <button
+            type="button"
+            class="btn btn-sm cinema-speed"
+            id="cinema-speed"
+            title="Narration playback speed"
+            hidden
+          >
+            1x
           </button>
           <label class="toggle-label">
             <input type="checkbox" id="cinema-autoadvance" checked />
@@ -279,6 +312,7 @@
     </div>
 
     <script src="data.js"></script>
+    <script src="audio/manifest.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
