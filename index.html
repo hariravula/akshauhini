@@ -6,9 +6,22 @@
     <meta name="theme-color" content="#1b0b08" />
     <meta
       name="description"
-      content="Akshauhini is assembling. The journey begins soon."
+      content="Akshauhini — Illustrated chronicles and reflections for life's battles. Explore Story I: Banners of Kurukshetra."
     />
-    <title>Akshauhini — Coming Soon</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Akshauhini" />
+    <meta property="og:title" content="Akshauhini — Banners of Kurukshetra" />
+    <meta
+      property="og:description"
+      content="A new chapter is assembling. Explore Story I: Banners of Kurukshetra — twenty-one war standards of the Mahabharata."
+    />
+    <meta property="og:url" content="https://akshauhini.com/" />
+    <meta
+      property="og:image"
+      content="https://akshauhini.com/stories/banners-of-kurukshetra/images/og-banners-of-kurukshetra.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Akshauhini</title>
     <link
       rel="preload"
       href="assets/caudex-latin-700.woff2"
@@ -32,8 +45,14 @@
 
       :root {
         color-scheme: dark;
+        --bg: #1b0b08;
+        --gold: #f4c879;
+        --gold-bright: #ffe4ad;
+        --ink: #fff8e7;
+        --ink-soft: rgb(255 248 231 / 0.86);
+        --ink-muted: rgb(238 219 191 / 0.72);
         font-family: Georgia, "Times New Roman", serif;
-        background: #1b0b08;
+        background: var(--bg);
       }
 
       * {
@@ -48,8 +67,9 @@
 
       body {
         min-height: 100svh;
-        overflow: hidden;
-        background: #1b0b08;
+        background: var(--bg);
+        color: var(--ink);
+        overflow-x: hidden;
       }
 
       .backdrop,
@@ -62,22 +82,25 @@
 
       .backdrop {
         z-index: 0;
-        background: #1b0b08;
+        background: var(--bg);
       }
 
       .backdrop img {
         object-fit: cover;
-        object-position: 50% 50%;
-        filter: saturate(0.96) contrast(1.03);
+        object-position: 50% 42%;
+        filter: saturate(0.94) contrast(1.03) brightness(0.72);
       }
 
       .page {
         position: relative;
         z-index: 1;
-        display: grid;
         min-height: 100svh;
-        place-items: end center;
-        padding: clamp(2rem, 7vh, 5.5rem) 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: clamp(1.5rem, 4vh, 2.75rem);
+        padding: clamp(2.5rem, 6vh, 4.5rem) 1.5rem clamp(2.25rem, 6vh, 4rem);
         isolation: isolate;
       }
 
@@ -86,15 +109,24 @@
         z-index: -1;
         inset: 0;
         background:
-          linear-gradient(180deg, rgb(12 5 3 / 0.08) 30%, rgb(12 5 3 / 0.72) 100%),
-          radial-gradient(circle at center, transparent 42%, rgb(12 5 3 / 0.34) 100%);
+          linear-gradient(
+            180deg,
+            rgb(14 6 4 / 0.16) 0%,
+            rgb(14 6 4 / 0.48) 42%,
+            rgb(14 6 4 / 0.88) 100%
+          ),
+          radial-gradient(
+            circle at center,
+            transparent 38%,
+            rgb(12 5 3 / 0.45) 100%
+          );
         content: "";
         pointer-events: none;
       }
 
       .announcement {
         width: min(100%, 62rem);
-        color: #fff8e7;
+        color: var(--ink);
         text-align: center;
         text-shadow: 0 0.15rem 1.5rem rgb(0 0 0 / 0.8);
       }
@@ -104,10 +136,10 @@
         align-items: center;
         justify-content: center;
         gap: 0.85rem;
-        margin: 0 0 0.8rem;
-        color: #f4c879;
+        margin: 0 0 0.7rem;
+        color: var(--gold);
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+        font-size: clamp(0.74rem, 1.15vw, 0.9rem);
         font-weight: 650;
         letter-spacing: 0.34em;
         line-height: 1.5;
@@ -116,7 +148,7 @@
 
       .eyebrow::before,
       .eyebrow::after {
-        width: clamp(2rem, 8vw, 6rem);
+        width: clamp(2rem, 8vw, 5.5rem);
         height: 1px;
         background: linear-gradient(90deg, transparent, currentcolor);
         content: "";
@@ -129,40 +161,181 @@
       h1 {
         margin: 0;
         font-family: "Caudex", Georgia, "Times New Roman", serif;
-        font-size: clamp(2.75rem, 8vw, 6.75rem);
+        font-size: clamp(2.6rem, 7.5vw, 5.8rem);
         font-weight: 700;
-        letter-spacing: 0.035em;
+        letter-spacing: 0.04em;
         line-height: 0.95;
         text-transform: uppercase;
       }
 
       .subtitle {
-        margin: 1rem auto 0;
-        color: rgb(255 248 231 / 0.88);
+        margin: 0.85rem auto 0;
+        color: var(--ink-soft);
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        font-size: clamp(1rem, 1.8vw, 1.15rem);
+        font-size: clamp(0.95rem, 1.6vw, 1.12rem);
         letter-spacing: 0.08em;
         line-height: 1.6;
       }
 
-      @media (max-width: 42rem) {
+      /* Featured Story Showcase Card */
+      .story-card {
+        width: min(100%, 60rem);
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+        border-radius: 18px;
+        overflow: hidden;
+        background: rgb(26 11 8 / 0.84);
+        border: 1px solid rgb(244 200 121 / 0.28);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 28px 72px rgb(0 0 0 / 0.65);
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+      }
+
+      .story-card:hover {
+        transform: translateY(-3px);
+        border-color: rgb(244 200 121 / 0.55);
+        box-shadow: 0 32px 84px rgb(0 0 0 / 0.78);
+      }
+
+      .story-media {
+        position: relative;
+        min-height: 260px;
+        background: #120605;
+        overflow: hidden;
+      }
+
+      .story-media picture {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .story-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .story-card:hover .story-media img {
+        transform: scale(1.04);
+      }
+
+      .story-badge {
+        position: absolute;
+        top: 0.9rem;
+        left: 0.9rem;
+        padding: 0.3rem 0.75rem;
+        border-radius: 999px;
+        background: rgb(18 7 5 / 0.82);
+        border: 1px solid rgb(244 200 121 / 0.38);
+        color: var(--gold-bright);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .story-content {
+        padding: clamp(1.35rem, 3vw, 2rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+
+      .story-kicker {
+        margin: 0;
+        color: var(--gold);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+
+      .story-title {
+        margin: 0;
+        font-family: "Caudex", Georgia, "Times New Roman", serif;
+        font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+        line-height: 1.08;
+        letter-spacing: 0.02em;
+        color: var(--ink);
+      }
+
+      .story-desc {
+        margin: 0;
+        color: var(--ink-soft);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 0.96rem;
+        line-height: 1.65;
+      }
+
+      .story-thumbs {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.4rem;
+        margin-top: 0.25rem;
+      }
+
+      .story-thumbs img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid rgb(244 200 121 / 0.22);
+        display: block;
+      }
+
+      .story-cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: 0.35rem;
+      }
+
+      .story-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.62rem 1.25rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f4c879 0%, #d49642 100%);
+        color: #1b0b08;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.84rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .story-stats {
+        color: var(--ink-muted);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 0.76rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 48rem) {
         .backdrop img {
           object-position: 37% 50%;
         }
 
-        .page {
-          padding-right: 1rem;
-          padding-bottom: max(2.25rem, env(safe-area-inset-bottom));
-          padding-left: 1rem;
+        .story-card {
+          grid-template-columns: 1fr;
         }
 
-        h1 {
-          font-size: clamp(2.2rem, 9.5vw, 4.4rem);
-          letter-spacing: 0.005em;
-        }
-
-        .subtitle {
-          max-width: 22rem;
+        .story-media {
+          min-height: 200px;
+          aspect-ratio: 16 / 9;
         }
       }
 
@@ -203,10 +376,80 @@
 
     <main class="page">
       <section class="announcement" aria-labelledby="site-title">
-        <p class="eyebrow">Coming soon</p>
+        <p class="eyebrow">First Chronicle Live</p>
         <h1 id="site-title">Akshauhini</h1>
         <p class="subtitle">A new chapter is assembling.</p>
       </section>
+
+      <a
+        class="story-card"
+        href="stories/banners-of-kurukshetra/"
+        aria-label="Read Story I: Banners of Kurukshetra"
+      >
+        <div class="story-media">
+          <picture>
+            <source
+              media="(max-width: 48rem)"
+              type="image/webp"
+              srcset="stories/banners-of-kurukshetra/images/06-arjuna-hanuman-960.webp"
+            />
+            <source
+              type="image/webp"
+              srcset="stories/banners-of-kurukshetra/images/06-arjuna-hanuman-1920.webp"
+            />
+            <img
+              src="stories/banners-of-kurukshetra/images/06-arjuna-hanuman-1920.jpg"
+              alt="Arjuna beneath the Hanuman Kapi Dhvaja war banner"
+              width="1920"
+              height="1080"
+            />
+          </picture>
+          <span class="story-badge">Story I · Now Publishing</span>
+        </div>
+
+        <div class="story-content">
+          <p class="story-kicker">Illustrated Visual Chronicle</p>
+          <h2 class="story-title">Banners of Kurukshetra</h2>
+          <p class="story-desc">
+            Twenty-one Mahabharata war standards—from Bhishma's palm tree and
+            Arjuna's Hanuman to Karna's golden rope and the five divine banners
+            of the UpaPandavas—woven into a five-act narrated story.
+          </p>
+
+          <div class="story-thumbs" aria-hidden="true">
+            <img
+              src="stories/banners-of-kurukshetra/images/01-bhishmacharya-palm-tree-960.webp"
+              alt=""
+              loading="lazy"
+            />
+            <img
+              src="stories/banners-of-kurukshetra/images/05-bhima-silver-lion-960.webp"
+              alt=""
+              loading="lazy"
+            />
+            <img
+              src="stories/banners-of-kurukshetra/images/09-duryodhana-diamond-hooded-snake-960.webp"
+              alt=""
+              loading="lazy"
+            />
+            <img
+              src="stories/banners-of-kurukshetra/images/11-karna-white-conch-960.webp"
+              alt=""
+              loading="lazy"
+            />
+            <img
+              src="stories/banners-of-kurukshetra/images/21-upapandavas-five-divine-banners-960.webp"
+              alt=""
+              loading="lazy"
+            />
+          </div>
+
+          <div class="story-cta-row">
+            <span class="story-cta">Enter the Story &rarr;</span>
+            <span class="story-stats">21 Banners · 5 Acts · Cinema Mode</span>
+          </div>
+        </div>
+      </a>
     </main>
   </body>
 </html>

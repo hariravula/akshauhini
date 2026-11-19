@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#140806" />
+    <title>Banners of Kurukshetra — Akshauhini</title>
+    <meta
+      name="description"
+      content="Twenty-one illustrated Mahabharata war standards (dhvajas) woven into a five-act visual chronicle with narration scripts, symbolism, and Cinema Mode."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Akshauhini" />
+    <meta property="og:title" content="Banners of Kurukshetra — Akshauhini" />
+    <meta
+      property="og:description"
+      content="Twenty-one war standards of the Mahabharata—each an emblem of lineage, mastery, longing, and fate."
+    />
+    <meta
+      property="og:url"
+      content="https://akshauhini.com/stories/banners-of-kurukshetra/"
+    />
+    <meta
+      property="og:image"
+      content="https://akshauhini.com/stories/banners-of-kurukshetra/images/og-banners-of-kurukshetra.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Banners of Kurukshetra — Akshauhini" />
+    <meta
+      name="twitter:description"
+      content="Twenty-one illustrated Mahabharata war standards woven into a five-act story."
+    />
+    <meta
+      name="twitter:image"
+      content="https://akshauhini.com/stories/banners-of-kurukshetra/images/og-banners-of-kurukshetra.jpg"
+    />
+    <link
+      rel="preload"
+      href="../../assets/caudex-latin-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231b0b08'/%3E%3Cpath d='M32 9 52 53h-9l-4-10H25l-4 10h-9L32 9Zm0 16-4 11h8l-4-11Z' fill='%23f4c879'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-nav">
+      <div class="site-nav-inner">
+        <a class="brand-link" href="../../" aria-label="Akshauhini Home">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <span>Akshauhini</span>
+        </a>
+
+        <nav class="act-nav" id="act-nav" aria-label="Story acts"></nav>
+
+        <div class="nav-actions">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            id="open-cinema-nav"
+          >
+            <span aria-hidden="true">&#9654;</span>
+            <span>Cinema Mode</span>
+          </button>
+        </div>
+      </div>
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="story-title">
+        <picture class="hero-backdrop" aria-hidden="true">
+          <source
+            media="(max-width: 48rem)"
+            type="image/webp"
+            srcset="images/06-arjuna-hanuman-960.webp"
+          />
+          <source type="image/webp" srcset="images/06-arjuna-hanuman-1920.webp" />
+          <img
+            src="images/06-arjuna-hanuman-1920.jpg"
+            alt=""
+            width="1920"
+            height="1080"
+            fetchpriority="high"
+          />
+        </picture>
+
+        <div class="hero-content">
+          <p class="eyebrow">Akshauhini Chronicle · Story I</p>
+          <h1 id="story-title">Banners of Kurukshetra</h1>
+          <p class="hero-subtitle">Twenty-One Standards of the Mahabharata</p>
+          <p class="hero-tagline" id="story-tagline"></p>
+          <div class="hero-meta" id="hero-meta">
+            <span>21 Illustrated Banners</span>
+            <span>·</span>
+            <span>5 Acts</span>
+            <span>·</span>
+            <span id="runtime-label">~11 Min Story</span>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#prologue">Begin the Chronicle</a>
+            <button type="button" class="btn" id="open-cinema-hero">
+              <span aria-hidden="true">&#9654;</span>
+              <span>Watch &amp; Listen in Cinema Mode</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="prologue-section" id="prologue" aria-labelledby="prologue-heading">
+        <div class="container">
+          <div class="prologue-card">
+            <p class="section-kicker" id="prologue-heading">Prologue · The Dhvaja</p>
+            <p class="prologue-text" id="prologue-text"></p>
+
+            <div class="index-strip-wrap">
+              <div class="index-strip-header">
+                <h2 class="index-strip-title">Jump to any of the 21 banners</h2>
+              </div>
+              <div
+                class="index-strip"
+                id="banner-index"
+                aria-label="Quick banner index"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="chronicle-root"></div>
+
+      <section class="epilogue-section" id="epilogue" aria-labelledby="epilogue-heading">
+        <div class="container">
+          <div class="epilogue-card">
+            <p class="section-kicker">Epilogue</p>
+            <h2 id="epilogue-heading">What Banner Rides Above You?</h2>
+            <p class="epilogue-text" id="epilogue-text"></p>
+            <div class="epilogue-actions">
+              <button type="button" class="btn btn-primary" id="replay-cinema">
+                <span aria-hidden="true">&#9654;</span>
+                <span>Experience in Cinema Mode</span>
+              </button>
+              <a class="btn" href="SCRIPTS.md" target="_blank" rel="noopener">
+                Read Full Narration Script
+              </a>
+              <a class="btn" href="../../">Return to Akshauhini</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <strong>Akshauhini</strong> · Banners of Kurukshetra (21 Standards of the
+        Mahabharata)
+      </p>
+      <p>
+        Illustrated chronicle &amp; narration scripts ·
+        <a href="scripts.json">scripts.json</a> ·
+        <a href="SCRIPTS.md">SCRIPTS.md</a>
+      </p>
+    </footer>
+
+    <!-- Cinema Mode Modal -->
+    <div
+      class="cinema-modal"
+      id="cinema-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cinema-warrior"
+      aria-hidden="true"
+    >
+      <div class="cinema-topbar">
+        <div class="cinema-title-group">
+          <span class="cinema-counter" id="cinema-counter">01 / 21</span>
+          <h2 class="cinema-heading" id="cinema-topbar-title">
+            Banners of Kurukshetra
+          </h2>
+        </div>
+        <div class="cinema-topbar-actions">
+          <button
+            type="button"
+            class="btn btn-sm"
+            id="cinema-toggle-panel"
+            aria-pressed="false"
+          >
+            Hide Script
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm"
+            id="cinema-close"
+            aria-label="Close Cinema Mode"
+          >
+            Close &times;
+          </button>
+        </div>
+      </div>
+
+      <div class="cinema-stage" id="cinema-stage">
+        <div class="cinema-visual" id="cinema-visual">
+          <button
+            type="button"
+            class="cinema-arrow cinema-arrow--prev"
+            id="cinema-prev"
+            aria-label="Previous banner"
+          >
+            &#8592;
+          </button>
+          <img id="cinema-image" src="" alt="" />
+          <button
+            type="button"
+            class="cinema-arrow cinema-arrow--next"
+            id="cinema-next"
+            aria-label="Next banner"
+          >
+            &#8594;
+          </button>
+        </div>
+
+        <aside class="cinema-panel">
+          <p class="cinema-act-kicker" id="cinema-act-kicker"></p>
+          <h3 class="cinema-warrior" id="cinema-warrior"></h3>
+          <p class="cinema-emblem" id="cinema-emblem"></p>
+          <div class="cinema-meta-line" id="cinema-meta-line"></div>
+          <p class="cinema-script" id="cinema-script"></p>
+          <div class="cinema-meaning">
+            <strong>Symbolism</strong>
+            <span id="cinema-meaning"></span>
+          </div>
+          <div class="cinema-reflection" id="cinema-reflection"></div>
+        </aside>
+      </div>
+
+      <div class="cinema-controls">
+        <div class="cinema-dots" id="cinema-dots" aria-label="Banner slides"></div>
+        <div class="cinema-playback">
+          <button type="button" class="btn btn-primary btn-sm" id="cinema-speak">
+            <span aria-hidden="true">&#9654;</span>
+            <span>Read Aloud</span>
+          </button>
+          <label class="toggle-label">
+            <input type="checkbox" id="cinema-autoadvance" checked />
+            <span>Auto-advance</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fullscreen Artwork Lightbox -->
+    <div
+      class="lightbox"
+      id="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Artwork preview"
+      aria-hidden="true"
+    >
+      <button
+        type="button"
+        class="lightbox-close"
+        id="lightbox-close"
+        aria-label="Close artwork preview"
+      >
+        &times;
+      </button>
+      <figure class="lightbox-figure">
+        <img id="lightbox-img" src="" alt="" />
+        <figcaption class="lightbox-caption" id="lightbox-caption"></figcaption>
+      </figure>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
