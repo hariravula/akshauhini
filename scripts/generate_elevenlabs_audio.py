@@ -26,6 +26,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -38,6 +39,32 @@ from pathlib import Path
 API_BASE = "https://api.elevenlabs.io/v1"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_STORY_DIR = REPO_ROOT / "stories" / "banners-of-kurukshetra"
+DEFAULT_PRONUNCIATION_PATH = REPO_ROOT / "scripts" / "pronunciation.json"
+
+
+def load_pronunciation_rules(path: Path | None) -> list[tuple[re.Pattern, str]]:
+    if not path or not path.exists():
+        return []
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    mapping: dict[str, str] = raw.get("replacements", raw) if isinstance(raw, dict) else {}
+    # Sort longest-first so multi-word phrases like "Kapi Dhvaja" match before "Dhvaja"
+    items = sorted(
+        ((k, v) for k, v in mapping.items() if not k.startswith("_") and isinstance(v, str)),
+        key=lambda kv: len(kv[0]),
+        reverse=True,
+    )
+    rules: list[tuple[re.Pattern, str]] = []
+    for src, dst in items:
+        pat = re.compile(rf"\b{re.escape(src)}\b")
+        rules.append((pat, dst))
+    return rules
+
+
+def apply_pronunciation(text: str, rules: list[tuple[re.Pattern, str]]) -> str:
+    out = text
+    for pat, dst in rules:
+        out = pat.sub(dst, out)
+    return out
 
 
 def load_dotenv(env_path: Path) -> None:
@@ -268,8 +295,8 @@ def main() -> None:
     parser.add_argument(
         "--stability",
         type=float,
-        default=0.52,
-        help="Voice stability 0.0-1.0 (default: 0.52 for expressive epic narration)",
+        default=0.65,
+        help="Voice stability 0.0-1.0 (default: 0.65 for clean, steady narration)",
     )
     parser.add_argument(
         "--similarity",
@@ -280,14 +307,25 @@ def main() -> None:
     parser.add_argument(
         "--style",
         type=float,
-        default=0.22,
-        help="Voice style exaggeration 0.0-1.0 (default: 0.22)",
+        default=0.10,
+        help="Voice style exaggeration 0.0-1.0 (default: 0.10 to avoid vocal artifacts)",
     )
     parser.add_argument(
         "--speed",
         type=float,
         default=0.95,
         help="Speaking speed 0.7-1.2 (default: 0.95 for cinematic pacing)",
+    )
+    parser.add_argument(
+        "--pronunciation",
+        type=Path,
+        default=DEFAULT_PRONUNCIATION_PATH,
+        help="Path to JSON phonetic pronunciation lexicon for TTS",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print pronunciation-adjusted TTS text without calling ElevenLabs",
     )
     parser.add_argument(
         "--only",
@@ -305,13 +343,11 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    api_key = get_api_key()
-
     if args.list_voices:
-        list_voices(api_key)
+        list_voices(get_api_key())
         return
 
-    if not args.voice:
+    if not args.dry_run and not args.voice:
         sys.exit("Error: pass --voice <name_or_id> (or run --list-voices first).")
 
     scripts_path = args.story_dir / "scripts.json"
@@ -319,8 +355,29 @@ def main() -> None:
         sys.exit(f"Error: scripts.json not found at {scripts_path}")
 
     story_data = json.loads(scripts_path.read_text(encoding="utf-8"))
+    pron_rules = load_pronunciation_rules(args.pronunciation)
+    tracks = build_tracks(story_data, include_bookends=not args.no_bookends)
+    for tr in tracks:
+        tr["tts_text"] = apply_pronunciation(tr["text"], pron_rules)
+
+    only_keys = (
+        {k.strip().lower().zfill(2) if k.strip().isdigit() else k.strip().lower() for k in args.only.split(",")}
+        if args.only
+        else None
+    )
+
+    if args.dry_run:
+        for tr in tracks:
+            if only_keys is not None and tr["key"].lower() not in only_keys:
+                continue
+            print(f"=== {tr['label']} ===")
+            print(tr["tts_text"])
+            print()
+        return
+
+    api_key = get_api_key()
     voice_id, voice_name = resolve_voice(api_key, args.voice, args.voice_name)
-    print(f"Using ElevenLabs voice: {voice_name} ({voice_id}) | model: {args.model}")
+    print(f"Using ElevenLabs voice: {voice_name} ({voice_id}) | model: {args.model} | pron rules: {len(pron_rules)}")
 
     audio_dir = args.story_dir / "audio"
     audio_dir.mkdir(parents=True, exist_ok=True)
@@ -347,13 +404,6 @@ def main() -> None:
         "speed": args.speed,
     }
 
-    tracks = build_tracks(story_data, include_bookends=not args.no_bookends)
-    only_keys = (
-        {k.strip().lower().zfill(2) if k.strip().isdigit() else k.strip().lower() for k in args.only.split(",")}
-        if args.only
-        else None
-    )
-
     generated = 0
     skipped = 0
     total_chars = 0
@@ -364,7 +414,8 @@ def main() -> None:
             continue
 
         out_path = audio_dir / track["filename"]
-        h = hash_track(track["text"], settings_fingerprint)
+        tts_text = track["tts_text"]
+        h = hash_track(tts_text, settings_fingerprint)
         existing = manifest["tracks"].get(key)
 
         if not args.force and out_path.exists() and existing and existing.get("hash") == h:
@@ -373,7 +424,7 @@ def main() -> None:
             continue
 
         body: dict = {
-            "text": track["text"],
+            "text": tts_text,
             "model_id": args.model,
             "voice_settings": {
                 "stability": args.stability,
@@ -385,14 +436,14 @@ def main() -> None:
         }
         # Pass neighboring text for consistent prosody across consecutive scenes
         if idx > 0:
-            body["previous_text"] = tracks[idx - 1]["text"][-260:]
+            body["previous_text"] = tracks[idx - 1]["tts_text"][-260:]
         if idx + 1 < len(tracks):
-            body["next_text"] = tracks[idx + 1]["text"][:260]
+            body["next_text"] = tracks[idx + 1]["tts_text"][:260]
 
         query = urllib.parse.urlencode({"output_format": args.output_format})
         path = f"/text-to-speech/{urllib.parse.quote(voice_id)}?{query}"
 
-        print(f"  [gen ] {track['label']} ({len(track['text'])} chars)...", end=" ", flush=True)
+        print(f"  [gen ] {track['label']} ({len(tts_text)} chars)...", end=" ", flush=True)
         audio_bytes = api_request("POST", path, api_key, body=body, accept="audio/mpeg")
         out_path.write_bytes(audio_bytes)
         dur = probe_duration_sec(out_path)
@@ -407,7 +458,7 @@ def main() -> None:
         }
         write_manifest(audio_dir, manifest)
         generated += 1
-        total_chars += len(track["text"])
+        total_chars += len(tts_text)
         time.sleep(0.25)
 
     write_manifest(audio_dir, manifest)
